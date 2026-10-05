@@ -1,0 +1,211 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>حجز جلسة | د. علي سعد الوائلي</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Tahoma,Arial,sans-serif;background:#f5faf9;color:#18302e;line-height:1.8}
+.wrap{width:min(760px,92%);margin:auto}
+header{padding:35px 0 15px}
+.back{color:#0f766e;text-decoration:none;font-weight:700}
+.card{background:#fff;border:1px solid #e3eeec;border-radius:22px;padding:28px;box-shadow:0 15px 35px #0f766e12;margin:20px 0 40px}
+h1{margin:0 0 12px;font-size:30px}
+.intro{color:#637572}
+label{display:block;font-weight:700;margin:18px 0 7px}
+input,select,textarea{width:100%;padding:13px 14px;border:1px solid #d5e4e1;border-radius:12px;background:#fff;color:#18302e;font:inherit}
+textarea{min-height:120px;resize:vertical}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.price{background:#f5faf9;border-radius:14px;padding:15px;margin-top:20px;font-weight:800;text-align:center}
+.note{background:#fff8df;border:1px solid #ead99a;border-radius:14px;padding:16px;margin-top:16px}
+button{width:100%;border:0;border-radius:13px;padding:14px;background:#0f766e;color:#fff;font:inherit;font-weight:800;font-size:17px;cursor:pointer;margin-top:20px}
+.small{font-size:13px;color:#637572;margin-top:12px}
+.hidden{display:none}
+@media(max-width:650px){.row{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<header>
+<div class="wrap">
+<a class="back" href="index.html">← العودة إلى الصفحة الرئيسية</a>
+</div>
+</header>
+
+<main class="wrap">
+<div class="card">
+<h1>حجز جلسة مع د. علي سعد الوائلي</h1>
+
+<div class="intro">
+<p>مرحبًا بك 🌿</p>
+<p>أنا د. علي سعد الوائلي، طبيب نفسي، وأدرس حاليًا ضمن برنامج البورد العربي للطب النفسي – المرحلة الثالثة.</p>
+<p>أقدّم جلسات نفسية حضورية وأونلاين، ونسعى خلال الجلسة إلى فهم الصعوبات التي تمر بها، وتقييمها بصورة مهنية، ومناقشة الخيارات العلاجية المناسبة لحالتك واحتياجاتك.</p>
+<p>خصوصيتك واحترامك وسرية ما تتم مناقشته خلال الجلسة أمور أساسية في عملي.</p>
+<p>قبل إكمال الحجز، يرجى اختيار نوع الجلسة وتعبئة المعلومات المطلوبة حتى أتمكن من التحضير للجلسة بصورة أفضل.</p>
+</div>
+
+<form id="bookingForm">
+<label for="type">نوع الجلسة</label>
+<select id="type" required>
+<option value="">اختر نوع الجلسة</option>
+<option value="أونلاين">أونلاين — 25,000 د.ع</option>
+<option value="حضورية">حضورية — 25,000 د.ع</option>
+<option value="زيارة منزلية">زيارة منزلية — 50,000 د.ع</option>
+<option value="زيارة منزلية">زيارة منزلية</option>
+</select>
+
+<div id="locationBox" class="hidden">
+<label for="location">مكان الجلسة الحضورية</label>
+<select id="location">
+<option value="">اختر المكان</option>
+<option>الياقوت</option>
+<option>الوردة</option>
+<option>فود لاند</option>
+<option>بوليفارد</option>
+<option>بن أكبر</option>
+<option>مختار</option>
+</select>
+</div>
+
+<div id="homeVisitBox" class="hidden">
+<label for="homeAddress">عنوان الزيارة المنزلية</label>
+<input id="homeAddress" type="text" placeholder="اكتب العنوان بالتفصيل">
+</div>
+
+<div id="homeLocationBox" class="hidden">
+<label for="homeLocation">عنوان الزيارة المنزلية</label>
+<input id="homeLocation" type="text" placeholder="اكتب العنوان بالتفصيل">
+</div>
+
+<div class="row">
+<div>
+<label for="date">التاريخ المطلوب</label>
+<input id="date" type="date" required>
+</div>
+<div>
+<label for="time">الوقت المطلوب</label>
+<input id="time" type="time" required>
+</div>
+</div>
+
+<label for="name">الاسم الثلاثي</label>
+<input id="name" type="text" required>
+
+<div class="row">
+<div>
+<label for="age">العمر</label>
+<input id="age" type="number" min="1" max="120" required>
+</div>
+<div>
+<label for="residence">السكن / المحافظة</label>
+<input id="residence" type="text" required>
+</div>
+</div>
+
+<label for="education">التحصيل الدراسي</label>
+<input id="education" type="text" required>
+
+<label for="marital">الحالة الاجتماعية</label>
+<select id="marital" required>
+<option value="">اختر</option>
+<option>أعزب/عزباء</option>
+<option>متزوج/متزوجة</option>
+<option>مطلق/مطلقة</option>
+<option>أرمل/أرملة</option>
+<option>أخرى</option>
+</select>
+
+<label for="job">العمل الحالي</label>
+<input id="job" type="text" required>
+
+<label for="problem">ما المشكلة أو السبب الرئيسي الذي ترغب بمناقشته خلال الجلسة؟</label>
+<textarea id="problem" required></textarea>
+
+<div class="price" id="priceBox">أجور الجلسة: 25,000 د.ع</div>
+
+<label style="display:flex;align-items:center;gap:10px;margin-top:20px;cursor:pointer"><input id="paid" type="checkbox" required style="width:auto"> <span>أؤكد أنني قمت بدفع أجور الجلسة مسبقًا</span></label>
+
+<div class="note">
+<strong>ملاحظة قبل تأكيد الحجز:</strong><br>
+لضمان تثبيت موعدك، يرجى إتمام دفع أجور الجلسة مسبقًا. يُعتبر الموعد مثبتًا بعد تأكيد الدفع.<br><br>
+<strong>رقم الماستر للدفع:</strong> 5226298965
+</div>
+
+<button type="submit">إرسال طلب الحجز عبر WhatsApp</button>
+
+<p class="small">سيتم فتح WhatsApp مع رسالة جاهزة تحتوي معلومات طلب الحجز. اضغط «إرسال» داخل WhatsApp لإرسال الطلب. إرسال الطلب لا يعني تثبيت الموعد إلا بعد تأكيد الدفع والموعد.</p>
+</form>
+</div>
+</main>
+
+<script>
+const type = document.getElementById('type');
+const locationBox = document.getElementById('locationBox');
+const locationField = document.getElementById('location');
+const homeLocationBox = document.getElementById('homeLocationBox');
+const homeLocationField = document.getElementById('homeLocation');
+const priceBox = document.getElementById('priceBox');
+const paid = document.getElementById('paid');
+
+type.addEventListener('change', function(){
+  const isInPerson = this.value === 'حضورية';
+  const isHome = this.value === 'زيارة منزلية';
+
+  locationBox.classList.toggle('hidden', !isInPerson);
+  locationField.required = isInPerson;
+  if(!isInPerson) locationField.value = '';
+
+  homeLocationBox.classList.toggle('hidden', !isHome);
+  homeLocationField.required = isHome;
+  if(!isHome) homeLocationField.value = '';
+
+  if (isHome) {
+    priceBox.textContent = 'أجور الزيارة المنزلية: 50,000 د.ع';
+  } else if (this.value === 'أونلاين' || isInPerson) {
+    priceBox.textContent = 'أجور الجلسة: 25,000 د.ع';
+  } else {
+    priceBox.textContent = 'أجور الجلسة: —';
+  }
+});
+
+document.getElementById('bookingForm').addEventListener('submit', function(e){
+  e.preventDefault();
+
+  if (!paid.checked) {
+    alert('يرجى تأكيد الدفع قبل إرسال طلب الحجز.');
+    return;
+  }
+
+  const phone = '9647811627604';
+  const sessionType = type.value;
+  const location = locationField.value || '—';
+  const homeLocation = homeLocationField.value || '—';
+  const price = sessionType === 'زيارة منزلية' ? '50,000 د.ع' : '25,000 د.ع';
+
+  const message =
+`طلب حجز جلسة جديدة
+
+الاسم الثلاثي: ${document.getElementById('name').value}
+العمر: ${document.getElementById('age').value}
+السكن / المحافظة: ${document.getElementById('residence').value}
+التحصيل الدراسي: ${document.getElementById('education').value}
+الحالة الاجتماعية: ${document.getElementById('marital').value}
+العمل الحالي: ${document.getElementById('job').value}
+
+نوع الجلسة: ${sessionType}
+مكان الجلسة: ${sessionType === 'حضورية' ? location : sessionType === 'زيارة منزلية' ? homeLocation : 'أونلاين'}
+التاريخ المطلوب: ${document.getElementById('date').value}
+الوقت المطلوب: ${document.getElementById('time').value}
+
+سبب المراجعة:
+${document.getElementById('problem').value}
+
+أجور الجلسة: ${price}
+رقم الماستر للدفع: 5226298965
+حالة الدفع: تم الدفع مسبقًا ✅`;
+
+  window.location.href = 'https://wa.me/' + phone + '?text=' + encodeURIComponent(message);
+});
+</script>
+</body>
+</html>
