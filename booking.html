@@ -50,6 +50,7 @@ button{width:100%;border:0;border-radius:13px;padding:14px;background:#0f766e;co
 <option value="">اختر نوع الجلسة</option>
 <option value="أونلاين">أونلاين</option>
 <option value="حضورية">حضورية</option>
+<option value="زيارة منزلية">زيارة منزلية</option>
 </select>
 
 <div id="locationBox" class="hidden">
@@ -63,6 +64,11 @@ button{width:100%;border:0;border-radius:13px;padding:14px;background:#0f766e;co
 <option>بن أكبر</option>
 <option>مختار</option>
 </select>
+</div>
+
+<div id="homeVisitBox" class="hidden">
+<label for="homeAddress">عنوان الزيارة المنزلية</label>
+<input id="homeAddress" type="text" placeholder="اكتب العنوان بالتفصيل">
 </div>
 
 <div class="row">
@@ -109,11 +115,12 @@ button{width:100%;border:0;border-radius:13px;padding:14px;background:#0f766e;co
 <label for="problem">ما المشكلة أو السبب الرئيسي الذي ترغب بمناقشته خلال الجلسة؟</label>
 <textarea id="problem" required></textarea>
 
-<div class="price">أجور الجلسة: 25,000 د.ع</div>
+<div class="price" id="priceBox">أجور الجلسة: 25,000 د.ع</div>
 
 <div class="note">
 <strong>ملاحظة قبل تأكيد الحجز:</strong><br>
-لضمان تثبيت موعدك، يرجى إتمام دفع أجور الجلسة مسبقًا. يُعتبر الموعد مثبتًا بعد تأكيد الدفع.
+لضمان تثبيت موعدك، يرجى إتمام دفع أجور الجلسة مسبقًا. يُعتبر الموعد مثبتًا بعد تأكيد الدفع.<br><br>
+<strong>رقم الماستر للدفع:</strong> 5226298965
 </div>
 
 <button type="submit">إرسال طلب الحجز عبر WhatsApp</button>
@@ -127,12 +134,25 @@ button{width:100%;border:0;border-radius:13px;padding:14px;background:#0f766e;co
 const type = document.getElementById('type');
 const locationBox = document.getElementById('locationBox');
 const locationField = document.getElementById('location');
+const homeVisitBox = document.getElementById('homeVisitBox');
+const homeAddress = document.getElementById('homeAddress');
+const priceBox = document.getElementById('priceBox');
 
 type.addEventListener('change', function(){
   const isInPerson = this.value === 'حضورية';
+  const isHomeVisit = this.value === 'زيارة منزلية';
+
   locationBox.classList.toggle('hidden', !isInPerson);
   locationField.required = isInPerson;
   if(!isInPerson) locationField.value = '';
+
+  homeVisitBox.classList.toggle('hidden', !isHomeVisit);
+  homeAddress.required = isHomeVisit;
+  if(!isHomeVisit) homeAddress.value = '';
+
+  priceBox.textContent = isHomeVisit
+    ? 'أجور الزيارة المنزلية: 50,000 د.ع'
+    : 'أجور الجلسة: 25,000 د.ع';
 });
 
 document.getElementById('bookingForm').addEventListener('submit', function(e){
@@ -140,7 +160,7 @@ document.getElementById('bookingForm').addEventListener('submit', function(e){
 
   const phone = '9647811627604';
   const sessionType = type.value;
-  const location = locationField.value || '—';
+  const location = locationField.value || (homeAddress.value || '—');
 
   const message =
 `طلب حجز جلسة جديدة
@@ -153,15 +173,16 @@ document.getElementById('bookingForm').addEventListener('submit', function(e){
 العمل الحالي: ${document.getElementById('job').value}
 
 نوع الجلسة: ${sessionType}
-مكان الجلسة: ${location}
+مكان الجلسة / عنوان الزيارة: ${location}
 التاريخ المطلوب: ${document.getElementById('date').value}
 الوقت المطلوب: ${document.getElementById('time').value}
 
 سبب المراجعة:
 ${document.getElementById('problem').value}
 
-أجور الجلسة: 25,000 د.ع
-حالة الدفع: سيتم الدفع مسبقًا قبل تثبيت الموعد.`;
+أجور الجلسة: ${sessionType === 'زيارة منزلية' ? '50,000 د.ع' : '25,000 د.ع'}
+حالة الدفع: سيتم الدفع مسبقًا قبل تثبيت الموعد.
+رقم الماستر للدفع: 5226298965`;
 
   window.location.href = 'https://wa.me/' + phone + '?text=' + encodeURIComponent(message);
 });
