@@ -1,1 +1,106 @@
-<!doctype html><html lang="ar" dir="rtl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>حجز جلسة | د. علي سعد الوائلي</title><style>body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Tahoma,Arial;background:#f5faf9;color:#18302e;margin:0}.wrap{width:min(720px,92%);margin:35px auto}.card{background:#fff;padding:28px;border-radius:22px;box-shadow:0 15px 40px #0f766e15}h1{margin-top:0;color:#0f766e}.intro{background:#eef8f6;padding:18px;border-radius:15px;margin-bottom:24px}.field{margin:18px 0}label{display:block;font-weight:700;margin-bottom:7px}input,select,textarea{width:100%;padding:12px;border:1px solid #ccdeda;border-radius:10px;font:inherit;background:#fff}textarea{min-height:110px;resize:vertical}.options{display:grid;grid-template-columns:1fr 1fr;gap:10px}.option{border:1px solid #ccdeda;padding:12px;border-radius:10px}.option input{width:auto}.hidden{display:none}.price{background:#e7f5f2;padding:14px;border-radius:12px;font-weight:700}.submit{width:100%;border:0;padding:14px;background:#0f766e;color:#fff;border-radius:12px;font:inherit;font-weight:800;margin-top:10px}.note{font-size:13px;color:#637572;margin-top:15px}@media(max-width:600px){.options{grid-template-columns:1fr}}</style></head><body><div class="wrap"><div class="card"><h1>حجز جلسة نفسية</h1><div class="intro"><b>مرحبًا بك</b><p>قبل إكمال الحجز، يرجى اختيار نوع الجلسة وتعبئة المعلومات المطلوبة حتى أتمكن من التحضير للجلسة بصورة أفضل.</p><p>أنا د. علي سعد الوائلي، طبيب نفسي، وأدرس حاليًا ضمن برنامج البورد العربي للطب النفسي – المرحلة الثالثة.</p></div><div class="field"><label>نوع الجلسة</label><div class="options"><label class="option"><input type="radio" name="type" value="حضورية" onchange="togglePlace(true)"> حضورية</label><label class="option"><input type="radio" name="type" value="أونلاين" onchange="togglePlace(false)"> أونلاين</label></div></div><div id="placeBox" class="field hidden"><label for="place">اختر مكان الجلسة الحضورية</label><select id="place"><option value="">اختر المكان</option><option>الياقوت</option><option>الوردة</option><option>فود لاند</option><option>بوليفارد</option><option>بن أكبر</option><option>مختار</option></select></div><div class="field"><label for="date">التاريخ المفضل</label><input id="date" type="date"></div><div class="field"><label for="time">الوقت المفضل</label><input id="time" type="time"></div><div class="field"><label for="name">الاسم الثلاثي</label><input id="name" autocomplete="name"></div><div class="field"><label for="age">العمر</label><input id="age" type="number" min="1" max="120"></div><div class="field"><label for="residence">السكن</label><input id="residence"></div><div class="field"><label for="study">الدراسة</label><input id="study"></div><div class="field"><label for="marital">الحالة الزوجية</label><select id="marital"><option>اختر</option><option>أعزب/عزباء</option><option>متزوج/متزوجة</option><option>مطلق/مطلقة</option><option>أرمل/أرملة</option></select></div><div class="field"><label for="job">العمل الحالي</label><input id="job"></div><div class="field"><label for="problem">ما المشكلة أو السبب الرئيسي الذي ترغب بمناقشته خلال الجلسة؟</label><textarea id="problem"></textarea></div><div class="price">قيمة الجلسة: 25,000 د.ع</div><button class="submit" type="button" onclick="showPaymentNotice()">متابعة إلى الدفع</button><p class="note">بيانات الحجز والمعلومات النفسية تحتاج إلى تخزين ومعالجة عبر خدمة آمنة. هذه النسخة تعرض واجهة الحجز فقط؛ لم يتم ربط دفع Mastercard الحقيقي أو تخزين البيانات بعد.</p></div></div><script>function togglePlace(show){document.getElementById('placeBox').classList.toggle('hidden',!show)}function showPaymentNotice(){alert('واجهة الحجز جاهزة. الخطوة التالية هي ربط بوابة دفع Mastercard آمنة ثم إرسال إشعار الحجز للطبيب.')}document.getElementById('date').min=new Date().toISOString().split('T')[0]</script></body></html>
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>حجز جلسة | د. علي سعد الوائلي</title>
+<style>
+*{box-sizing:border-box}body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Tahoma,Arial,sans-serif;background:#f5faf9;color:#18302e;line-height:1.7}
+.wrap{width:min(760px,92%);margin:auto}.top{padding:25px 0}.back{color:#0f766e;font-weight:700}
+.card{background:#fff;border:1px solid #e1ecea;border-radius:24px;padding:28px;box-shadow:0 15px 40px #0f766e12}
+h1{margin-top:0;font-size:32px}.intro{background:#f5faf9;border-radius:16px;padding:20px;margin-bottom:25px}
+label{display:block;font-weight:700;margin:16px 0 7px}input,select,textarea{width:100%;padding:13px;border:1px solid #cfdedb;border-radius:11px;background:#fff;font:inherit}
+textarea{min-height:110px;resize:vertical}.row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.hidden{display:none}.price{font-size:21px;font-weight:800;color:#0f766e;margin:22px 0}
+.notice{background:#fff8e6;border:1px solid #f0d995;border-radius:14px;padding:17px;margin-top:22px}
+button{width:100%;border:0;border-radius:12px;padding:14px;background:#0f766e;color:#fff;font:inherit;font-weight:800;margin-top:22px}
+.small{font-size:13px;color:#667875;margin-top:8px}
+@media(max-width:600px){.row{grid-template-columns:1fr}.card{padding:20px}}
+</style>
+</head>
+<body>
+<div class="wrap top"><a class="back" href="index.html">← العودة إلى الصفحة الرئيسية</a></div>
+
+<main class="wrap">
+<div class="card">
+<h1>حجز جلسة نفسية</h1>
+
+<div class="intro">
+<strong>مرحبًا بك 🌿</strong>
+<p>أنا <strong>د. علي سعد الوائلي، طبيب نفسي</strong>، وأدرس حاليًا ضمن برنامج <strong>البورد العربي للطب النفسي – المرحلة الثالثة</strong>.</p>
+<p>أقدّم جلسات نفسية حضورية وأونلاين، ونسعى خلال الجلسة إلى فهم الصعوبات التي تمر بها، وتقييمها بصورة مهنية، ومناقشة الخيارات العلاجية المناسبة لحالتك واحتياجاتك.</p>
+<p>خصوصيتك واحترامك وسرية ما تتم مناقشته خلال الجلسة أمور أساسية في عملي.</p>
+</div>
+
+<form>
+<label for="type">نوع الجلسة</label>
+<select id="type" required onchange="togglePlace()">
+<option value="">اختر نوع الجلسة</option>
+<option value="online">أونلاين</option>
+<option value="inperson">حضورية</option>
+</select>
+
+<div id="placeBox" class="hidden">
+<label for="place">مكان الجلسة الحضورية</label>
+<select id="place">
+<option value="">اختر المكان</option>
+<option>الياقوت</option>
+<option>الوردة</option>
+<option>فود لاند</option>
+<option>بوليفارد</option>
+<option>بن أكبر</option>
+<option>مختار</option>
+</select>
+</div>
+
+<label for="date">التاريخ المفضل</label>
+<input id="date" type="date" required>
+
+<label for="time">الوقت المفضل</label>
+<input id="time" type="time" required>
+
+<div class="row">
+<div><label for="name">الاسم الثلاثي</label><input id="name" required></div>
+<div><label for="age">العمر</label><input id="age" type="number" min="1" max="120" required></div>
+</div>
+
+<label for="residence">السكن</label>
+<input id="residence" placeholder="المحافظة / المنطقة" required>
+
+<label for="education">الدراسة</label>
+<input id="education" placeholder="المرحلة الدراسية أو آخر شهادة">
+
+<label for="marital">الحالة الزوجية</label>
+<select id="marital" required>
+<option value="">اختر</option><option>أعزب/عزباء</option><option>متزوج/متزوجة</option><option>مطلق/مطلقة</option><option>أرمل/أرملة</option><option>أفضل عدم الإجابة</option>
+</select>
+
+<label for="work">العمل الحالي</label>
+<input id="work" placeholder="العمل أو المهنة">
+
+<label for="reason">ما المشكلة أو السبب الرئيسي الذي ترغب بمناقشته خلال الجلسة؟</label>
+<textarea id="reason" required></textarea>
+
+<div class="price">أجور الجلسة: 25,000 د.ع</div>
+
+<div class="notice">
+<strong>ملاحظة قبل تأكيد الحجز:</strong><br>
+لضمان تثبيت موعدك، يرجى إتمام دفع أجور الجلسة مسبقًا. يُعتبر الموعد مثبتًا بعد تأكيد الدفع.
+</div>
+
+<p class="small">بعد إرسال طلب الحجز، سيتم تأكيد التفاصيل وفق آلية الحجز المعتمدة.</p>
+<button type="button" onclick="alert('هذه نسخة تجريبية من نموذج الحجز. لم يتم ربط الإرسال أو الدفع الإلكتروني بعد.')">تأكيد طلب الحجز</button>
+</form>
+</div>
+</main>
+
+<script>
+function togglePlace(){
+ const type=document.getElementById('type').value;
+ const box=document.getElementById('placeBox');
+ const place=document.getElementById('place');
+ box.classList.toggle('hidden',type!=='inperson');
+ place.required=(type==='inperson');
+}
+</script>
+</body></html>
