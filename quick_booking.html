@@ -1,181 +1,39 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
-<meta http-equiv="Pragma" content="no-cache">
-<meta http-equiv="Expires" content="0">
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>الحجز السريع | د. علي سعد الوائلي</title>
+<meta http-equiv="Pragma" content="no-cache"><meta http-equiv="Expires" content="0">
+<title>حجز أول جلسة | د. علي سعد الوائلي</title>
 <style>
-*{box-sizing:border-box}body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Tahoma,Arial,sans-serif;background:#f5faf9;color:#18302e;line-height:1.8}
-.wrap{width:min(700px,92%);margin:auto}header{padding:28px 0}.back{color:#0f766e;text-decoration:none;font-weight:700}
-.card{background:#fff;border:1px solid #e3eeec;border-radius:22px;padding:25px;box-shadow:0 15px 35px #0f766e12}
-h1{margin:0 0 5px}.muted{color:#637572}.label{display:block;font-weight:700;margin:18px 0 7px}
-select,input{width:100%;padding:13px;border:1px solid #d5e4e1;border-radius:12px;font:inherit;background:#fff}
-.slots{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin-top:10px}
-.slot{padding:10px;border:1px solid #d5e4e1;border-radius:10px;background:white;color:#18302e}
-.slot.selected{background:#0f766e;color:#fff}.slot.booked{background:#eee;color:#999;text-decoration:line-through;cursor:not-allowed}
-button{width:100%;padding:14px;margin-top:22px;border:0;border-radius:13px;background:#0f766e;color:white;font:inherit;font-weight:800;font-size:17px}
-.notice{margin-top:15px;padding:13px;border-radius:12px;background:#fff8df;border:1px solid #ead99a}
-.hidden{display:none}@media(max-width:500px){.slots{grid-template-columns:repeat(2,1fr)}}
-</style>
-</head>
-<body>
-<header><div class="wrap"><a class="back" href="index.html">← العودة للموقع</a></div></header>
-<main class="wrap"><div class="card">
-<h1>⚡ الحجز السريع</h1>
-<p class="muted">اختر اليوم والوقت المتاحين، ثم أرسل طلب الحجز عبر WhatsApp.</p>
-
-<label class="label">نوع الجلسة</label>
-<select id="type"><option value="أونلاين">أونلاين</option><option value="حضورية">حضورية</option></select>
-
-<div id="locWrap" class="hidden">
-<label class="label">مكان الجلسة</label>
-<select id="location"><option>الياقوت</option><option>الوردة</option><option>فود لاند</option><option>بوليفارد</option><option>بن أكبر</option><option>مختار</option></select>
-</div>
-
-<label class="label">اليوم</label>
-<select id="date"><option>جاري تحميل الأيام...</option></select>
-
-<label class="label">الوقت</label>
-<div id="slots"><div class="muted">اختر اليوم أولًا.</div></div>
-
-<label class="label">الاسم</label>
-<input id="name" placeholder="الاسم الثلاثي">
-
-<div class="notice">أجور الجلسة: <b>25,000 د.ع</b><br>يُعتبر الموعد مثبتًا بعد تأكيد الدفع.</div>
-<button id="send">تأكيد الموعد وإرسال الطلب عبر WhatsApp</button>
-</div></main>
-
+body{font-family:Arial,sans-serif;background:#f7f8fa;margin:0;color:#222}
+.container{max-width:650px;margin:auto;padding:20px}.card{background:#fff;border-radius:18px;padding:24px;box-shadow:0 4px 18px rgba(0,0,0,.08)}
+h1{text-align:center}label{display:block;margin:15px 0 7px;font-weight:bold}
+select,input{width:100%;box-sizing:border-box;padding:13px;border:1px solid #ddd;border-radius:10px;font-size:16px}
+.slots{display:flex;flex-wrap:wrap;gap:10px;margin-top:10px}.slot{border:0;border-radius:10px;padding:12px 18px;background:#eef2f6;cursor:pointer}
+.slot.selected{background:#1f6feb;color:#fff}button.submit{width:100%;margin-top:22px;padding:14px;border:0;border-radius:12px;background:#1f6feb;color:white;font-size:17px;font-weight:bold}
+.note{background:#fff7df;padding:14px;border-radius:10px;line-height:1.8;margin-top:18px}
+</style></head>
+<body><div class="container"><div class="card">
+<h1>🆕 حجز أول جلسة</h1>
+<p style="text-align:center;line-height:1.8">اختر نوع الجلسة والتاريخ والوقت المناسب من المواعيد المتاحة.</p>
+<label>نوع الجلسة</label>
+<select id="sessionType" onchange="toggleLocation()"><option value="online">أونلاين</option><option value="inperson">حضوري</option></select>
+<div id="locationBox" style="display:none"><label>مكان الجلسة</label>
+<select id="location"><option>الياقوت</option><option>الوردة</option><option>فود لاند</option><option>بوليفارد</option><option>بن أكبر</option><option>مختار</option></select></div>
+<label>التاريخ</label><select id="date" onchange="loadSlots()"><option>جاري تحميل المواعيد...</option></select>
+<label>الوقت</label><div id="slots" class="slots">جاري تحميل الأوقات...</div>
+<label>الاسم الثلاثي</label><input id="name" type="text" placeholder="اكتب اسمك الثلاثي">
+<div class="note"><strong>ملاحظة قبل تأكيد الحجز:</strong><br>لضمان تثبيت موعدك، يرجى إتمام دفع أجور الجلسة مسبقًا. يُعتبر الموعد مثبتًا بعد تأكيد الدفع.<br>أجور الجلسة: <strong>25,000 دينار عراقي</strong></div>
+<button class="submit" onclick="sendBooking()">تأكيد الحجز عبر واتساب</button>
+</div></div>
 <script>
-const API_URL = "https://script.google.com/macros/s/AKfycbxv8WdSFiM9lOEDASGrOYvEA3YQroksPYP1iWNLS2g8C5vuIaq1NP6dPKBHP45aswRu/exec";
-const PHONE = "9647811627604";
-let selectedSlot = "";
-
-const typeEl = document.getElementById("type");
-const locWrap = document.getElementById("locWrap");
-const dateEl = document.getElementById("date");
-const slotsEl = document.getElementById("slots");
-
-typeEl.onchange = () => locWrap.classList.toggle("hidden", typeEl.value !== "حضورية");
-
-async function loadAvailability() {
-  try {
-    const r = await fetch(API_URL + "?action=availability");
-    const data = await r.json();
-    dateEl.innerHTML = "";
-
-    if (!data.days || !data.days.length) {
-      dateEl.innerHTML = '<option value="">لا توجد مواعيد متاحة حاليًا</option>';
-      slotsEl.innerHTML = '<div class="muted">سيتم إضافة المواعيد قريبًا.</div>';
-      return;
-    }
-
-    data.days.forEach(d => {
-      const o = document.createElement("option");
-      o.value = d.date;
-      o.textContent = d.label;
-      dateEl.appendChild(o);
-    });
-    renderSlots();
-  } catch(e) {
-    dateEl.innerHTML = '<option value="">تعذر تحميل المواعيد</option>';
-    slotsEl.innerHTML = '<div class="muted">تحقق من اتصال الإنترنت وحاول مرة أخرى.</div>';
-  }
-}
-
-async function renderSlots() {
-  selectedSlot = "";
-  slotsEl.innerHTML = '<div class="muted">جاري التحميل...</div>';
-
-  try {
-    const r = await fetch(API_URL + "?action=slots&date=" + encodeURIComponent(dateEl.value));
-    const data = await r.json();
-    slotsEl.innerHTML = "";
-
-    (data.slots || []).forEach(s => {
-      const b = document.createElement("button");
-      b.type = "button";
-      b.className = "slot" + (s.booked ? " booked" : "");
-      b.textContent = s.time + (s.booked ? " — محجوز" : "");
-
-      if (!s.booked) {
-        b.onclick = () => {
-          document.querySelectorAll(".slot").forEach(x => x.classList.remove("selected"));
-          b.classList.add("selected");
-          selectedSlot = s.time;
-        };
-      } else {
-        b.disabled = true;
-      }
-      slotsEl.appendChild(b);
-    });
-  } catch(e) {
-    slotsEl.innerHTML = '<div class="muted">تعذر تحميل الأوقات.</div>';
-  }
-}
-
-dateEl.onchange = renderSlots;
-
-document.getElementById("send").onclick = async () => {
-  const name = document.getElementById("name").value.trim();
-
-  if (!dateEl.value || !selectedSlot || !name) {
-    alert("اختَر اليوم والوقت واكتب الاسم أولًا.");
-    return;
-  }
-
-  const location = typeEl.value === "حضورية"
-    ? document.getElementById("location").value
-    : "—";
-
-  const button = document.getElementById("send");
-  button.disabled = true;
-  button.textContent = "جاري تثبيت الموعد...";
-
-  try {
-    const response = await fetch(API_URL, {
-      method: "POST",
-      headers: {"Content-Type":"text/plain;charset=utf-8"},
-      body: JSON.stringify({
-        action: "book",
-        date: dateEl.value,
-        time: selectedSlot,
-        name: name
-      })
-    });
-
-    const result = await response.json();
-
-    if (!result.success) {
-      alert(result.message || "تعذر حجز الموعد. ربما تم حجزه من شخص آخر.");
-      button.disabled = false;
-      button.textContent = "تأكيد الموعد وإرسال الطلب عبر WhatsApp";
-      await renderSlots();
-      return;
-    }
-
-    const msg =
-      "طلب حجز سريع\n\n" +
-      "الاسم: " + name + "\n" +
-      "نوع الجلسة: " + typeEl.value + "\n" +
-      "المكان: " + location + "\n" +
-      "التاريخ: " + dateEl.value + "\n" +
-      "الوقت: " + selectedSlot + "\n" +
-      "أجور الجلسة: 25,000 د.ع\n\n" +
-      "الموعد لا يُعتبر مثبتًا نهائيًا إلا بعد تأكيد الدفع.";
-
-    window.location.href =
-      "https://wa.me/" + PHONE + "?text=" + encodeURIComponent(msg);
-
-  } catch(e) {
-    alert("حدث خطأ أثناء تثبيت الموعد. حاول مرة أخرى.");
-    button.disabled = false;
-    button.textContent = "تأكيد الموعد وإرسال الطلب عبر WhatsApp";
-  }
-};
-
-loadAvailability();
-</script>
-</body>
-</html>
+const API_URL="https://script.google.com/macros/s/AKfycbxv8WdSFiM9lOEDASGrOYvEA3YQroksPYP1iWNLS2g8C5vuIaq1NP6dPKBHP45aswRu/exec";
+let selectedTime="";
+function toggleLocation(){document.getElementById("locationBox").style.display=document.getElementById("sessionType").value==="inperson"?"block":"none"}
+function loadJSONP(action,callback){const cb="cb_"+Date.now()+"_"+Math.floor(Math.random()*10000);const s=document.createElement("script");window[cb]=data=>{delete window[cb];s.remove();callback(data)};s.src=API_URL+"?action="+action+"&callback="+cb+"&_="+Date.now();document.body.appendChild(s)}
+function loadDates(){loadJSONP("availability",data=>{const el=document.getElementById("date");el.innerHTML="";(data.days||[]).forEach(d=>{const o=document.createElement("option");o.value=d.date;o.textContent=d.label||d.date;el.appendChild(o)});if(el.options.length)loadSlots()})}
+function loadSlots(){selectedTime="";const date=document.getElementById("date").value;const box=document.getElementById("slots");box.innerHTML="جاري التحميل...";loadJSONP("slots&date="+encodeURIComponent(date),data=>{box.innerHTML="";(data.slots||[]).forEach(t=>{const b=document.createElement("button");b.type="button";b.className="slot";b.textContent=t.time;if(t.status&&t.status!=="متاح"){b.disabled=true;b.textContent=t.time+" - محجوز"}b.onclick=()=>{document.querySelectorAll(".slot").forEach(x=>x.classList.remove("selected"));b.classList.add("selected");selectedTime=t.time};box.appendChild(b)});if(!box.children.length)box.textContent="لا توجد أوقات متاحة لهذا اليوم."})}
+function sendBooking(){const name=document.getElementById("name").value.trim(),date=document.getElementById("date").value,type=document.getElementById("sessionType").value,location=document.getElementById("location").value;if(!name){alert("يرجى كتابة الاسم الثلاثي.");return}if(!selectedTime){alert("يرجى اختيار الوقت.");return}let msg="حجز أول جلسة%0Aالاسم: "+encodeURIComponent(name)+"%0Aالتاريخ: "+encodeURIComponent(date)+"%0Aالوقت: "+encodeURIComponent(selectedTime)+"%0Aنوع الجلسة: "+encodeURIComponent(type==="online"?"أونلاين":"حضوري");if(type==="inperson")msg+="%0Aالمكان: "+encodeURIComponent(location);window.open("https://wa.me/9647811627604?text="+msg,"_blank")}
+loadDates();
+</script></body></html>
