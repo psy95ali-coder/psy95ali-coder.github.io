@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache"><meta http-equiv="Expires" content="0">
+<title>حجز جلسة متابعة | د. علي سعد الوائلي</title>
+<style>
+body{font-family:Arial,sans-serif;background:#f7f8fa;margin:0;color:#222}
+.container{max-width:650px;margin:auto;padding:20px}.card{background:#fff;border-radius:18px;padding:24px;box-shadow:0 4px 18px rgba(0,0,0,.08)}
+h1{text-align:center}label{display:block;margin:15px 0 7px;font-weight:bold}
+select,input{width:100%;box-sizing:border-box;padding:13px;border:1px solid #ddd;border-radius:10px;font-size:16px}
+.slots{display:flex;flex-wrap:wrap;gap:10px;margin-top:10px}.slot{border:0;border-radius:10px;padding:12px 18px;background:#eef2f6;cursor:pointer}
+.slot.selected{background:#1f6feb;color:#fff}button.submit{width:100%;margin-top:22px;padding:14px;border:0;border-radius:12px;background:#1f6feb;color:white;font-size:17px;font-weight:bold}
+.note{background:#fff7df;padding:14px;border-radius:10px;line-height:1.8;margin-top:18px}
+</style></head>
+<body><div class="container"><div class="card">
+<h1>🔄 حجز جلسة متابعة</h1>
+<p style="text-align:center;line-height:1.8">اختر نوع الجلسة والتاريخ والوقت المناسب من المواعيد المتاحة.</p>
+<label>نوع الجلسة</label>
+<select id="sessionType" onchange="toggleLocation()"><option value="online">أونلاين</option><option value="inperson">حضوري</option></select>
+<div id="locationBox" style="display:none"><label>مكان الجلسة</label>
+<select id="location"><option>الياقوت</option><option>الوردة</option><option>فود لاند</option><option>بوليفارد</option><option>بن أكبر</option><option>مختار</option></select></div>
+<label>التاريخ</label><select id="date" onchange="loadSlots()"><option>جاري تحميل المواعيد...</option></select>
+<label>الوقت</label><div id="slots" class="slots">جاري تحميل الأوقات...</div>
+<label>الاسم الثلاثي</label><input id="name" type="text" placeholder="اكتب اسمك الثلاثي">
+<div class="note"><strong>ملاحظة قبل تأكيد الحجز:</strong><br>لضمان تثبيت موعدك، يرجى إتمام دفع أجور الجلسة مسبقًا. يُعتبر الموعد مثبتًا بعد تأكيد الدفع.<br>أجور الجلسة: <strong>25,000 دينار عراقي</strong></div>
+
+<div class="payment-box" style="margin-top:18px;padding:15px;border:1px solid #ddd;border-radius:12px;background:#fafafa;text-align:right;">
+  <label style="display:flex;align-items:flex-start;gap:10px;cursor:pointer;font-weight:normal;margin:0;">
+    <input id="paid" type="checkbox" style="width:20px;height:20px;margin-top:2px;flex:0 0 auto;">
+    <span>أؤكد أنني قمت بدفع أجور الجلسة مسبقًا.</span>
+  </label>
+  <div style="margin-top:12px;line-height:1.9;">
+    <strong>أسعار الجلسات:</strong><br>
+    • الجلسة الأونلاين: <strong>25,000 دينار عراقي</strong><br>
+    • الجلسة الحضورية: <strong>25,000 دينار عراقي</strong><br>
+    • الزيارة المنزلية: <strong>50,000 دينار عراقي</strong>
+  </div>
+</div>
+
+<button class="submit" onclick="sendBooking()">تأكيد الحجز عبر واتساب</button>
+</div></div>
+<script>
+const API_URL="https://script.google.com/macros/s/AKfycbxv8WdSFiM9lOEDASGrOYvEA3YQroksPYP1iWNLS2g8C5vuIaq1NP6dPKBHP45aswRu/exec";
+let selectedTime="";
+function toggleLocation(){document.getElementById("locationBox").style.display=document.getElementById("sessionType").value==="inperson"?"block":"none"}
+function loadJSONP(action,callback){const cb="cb_"+Date.now()+"_"+Math.floor(Math.random()*10000);const s=document.createElement("script");window[cb]=data=>{delete window[cb];s.remove();callback(data)};s.src=API_URL+"?action="+action+"&callback="+cb+"&_="+Date.now();document.body.appendChild(s)}
+function loadDates(){loadJSONP("availability",data=>{const el=document.getElementById("date");el.innerHTML="";(data.days||[]).forEach(d=>{const o=document.createElement("option");o.value=d.date;o.textContent=d.label||d.date;el.appendChild(o)});if(el.options.length)loadSlots()})}
+function loadSlots(){selectedTime="";const date=document.getElementById("date").value;const box=document.getElementById("slots");box.innerHTML="جاري التحميل...";loadJSONP("slots&date="+encodeURIComponent(date),data=>{box.innerHTML="";(data.slots||[]).forEach(t=>{const b=document.createElement("button");b.type="button";b.className="slot";b.textContent=t.time;if(t.status&&t.status!=="متاح"){b.disabled=true;b.textContent=t.time+" - محجوز"}b.onclick=()=>{document.querySelectorAll(".slot").forEach(x=>x.classList.remove("selected"));b.classList.add("selected");selectedTime=t.time};box.appendChild(b)});if(!box.children.length)box.textContent="لا توجد أوقات متاحة لهذا اليوم."})}
+function sendBooking(){
+  if(!document.getElementById("paid").checked){
+    alert("يرجى تأكيد إتمام الدفع قبل متابعة الحجز.");
+    return;
+  }const name=document.getElementById("name").value.trim(),date=document.getElementById("date").value,type=document.getElementById("sessionType").value,location=document.getElementById("location").value;if(!name){alert("يرجى كتابة الاسم الثلاثي.");return}if(!selectedTime){alert("يرجى اختيار الوقت.");return}let msg="حجز جلسة متابعة%0Aالاسم: "+encodeURIComponent(name)+"%0Aالتاريخ: "+encodeURIComponent(date)+"%0Aالوقت: "+encodeURIComponent(selectedTime)+"%0Aنوع الجلسة: "+encodeURIComponent(type==="online"?"أونلاين":"حضوري");if(type==="inperson")msg+="%0Aالمكان: "+encodeURIComponent(location);window.open("https://wa.me/9647811627604?text="+msg,"_blank")}
+loadDates();
+</script></body></html>
